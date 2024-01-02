@@ -1,12 +1,19 @@
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+
+from casting.models import Actor
 
 
 def index(request):
-    return HttpResponse("This is the CASTING index page")
+    context = {
+        'actors_list': Actor.objects.order_by()[:10],
+    }
+    return render(request, "casting/index.html", context)
 
 
 def detail(request, actor_id):
-    return HttpResponse("You are looking at the details of actor {}".format(actor_id))
+    actor = get_object_or_404(Actor, pk=actor_id)
+    return render(request, 'casting/details.html', {"actor": actor})
 
 
 def rehearsal(request, actor_id, prop_id, action_id):

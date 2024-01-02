@@ -1,0 +1,13 @@
+<h1>Casting Room</h1>
+{% if actors_list %}
+    <h2> Our Actors</h2>
+    <ul>
+    {% for actor in actors_list %}
+        <li><a href="/casting/{{ actor.id }}/">{{ actor.name }}</a></li>
+    {% endfor %}
+    </ul>
+    <h2>Rehearsal</h2>
+    <p>Gimme me your numbers</p>
+{% else %}
+    <p>No Actors found :o(</p>
+{% endif %}
