@@ -6,7 +6,7 @@ from casting.models import Actor
 
 def index(request):
     context = {
-        'actors_list': Actor.objects.order_by()[:10],
+        'actors_list': Actor.objects.order_by(),
     }
     return render(request, "casting/index.html", context)
 
@@ -16,5 +16,25 @@ def detail(request, actor_id):
     return render(request, 'casting/details.html', {"actor": actor})
 
 
-def rehearsal(request, actor_id, prop_id, action_id):
-    return HttpResponse("It actor %s with prop %s doing %s" % (actor_id, prop_id, action_id))
+def rehearsal(request):
+    if request.method == 'POST':
+        try:
+            rehearsalInput = request.POST["rehearsal_input"]
+        except KeyError:
+            return render(
+                request,
+                'casting/index.html',
+                {
+                    "error_message": "No rehearsal data provided.",
+                    'actors_list': Actor.objects.order_by()
+                })
+        return render(
+            request,
+            'casting/index.html',
+            {
+                "rehearsal_result": rehearsalInput,
+                'actors_list': Actor.objects.order_by()
+            }
+        )
+
+    return HttpResponse(request)
