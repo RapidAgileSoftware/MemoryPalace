@@ -10,5 +10,4 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('quizzes/', include('quizzes.urls')),
-    path('dressingroom/', include('DressingRoom.urls')),
 ]
