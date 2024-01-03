@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.views import generic
-from casting.models import Actor
+from casting.models import Actor,Cast,Role
 
 
 def index(request):
+    cast = Cast.objects.first()
     context = {
-        'actors_list': Actor.objects.order_by(),
+        'currentCast': cast,
+        'currentRoles': cast.roles.all()
     }
     return render(request, "casting/index.html", context)
 
@@ -15,7 +17,8 @@ class IndexView(generic.ListView):
     context_object_name = "actors_list"
 
     def get_queryset(self):
-        return Actor.objects.order_by()[:5]
+        return Actor.objects.order_by("id")
+
 
 
 class DetailView(generic.DetailView):

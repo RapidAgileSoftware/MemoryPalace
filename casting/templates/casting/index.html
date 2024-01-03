@@ -8,31 +8,30 @@
 </head>
 <body>
 <h1>Casting Room</h1>
-{% if actors_list %}
-    <h2> Actors/ Lookup</h2>
-    <ul>
-    {% for actor in actors_list %}
-        <li><a href="{% url 'casting:detail' actor.id %}">{{ actor.name }}</a></li>
-    {% endfor %}
-    </ul>
-    <h2>Rehearsal/ Encoding</h2>
-    <!-- Rehearsal Form -->
-    <form action="{% url 'casting:rehearsal' %}" method="post">
-        {% csrf_token %}
-        {% if error_message %}<h2>{{ error_message }}</h2>{% endif %}
-        <label for="rehearsal_input">Enter a 3 digit code preview what to memorize.</label>
-        <input type="text" name="rehearsal_input" id="rehearsal_input" maxlength="3" size="5">
-        <input type="submit" value="Rehearse \ Encode">
-    </form>
-    {%  if rehearsal_result %}
-        <h3>Rehearsal Results</h3>
-        <p>{{ rehearsal_result }}</p>
-    {% endif %}
-    <h2>Statistics</h2>
-    <p>How many rehearsals?</p>
-    <h4>Coming soon.</h4>
+<h2>Current Cast</h2>
+{% if currentCast %}
+    <h3><a href="#">{{ currentCast.title}}</a></h3>
+        <ul>
+            {% for role in currentRoles %}
+                <li><b>{{ role.acts_as }}</b> is played by {{ role.actor }} with {{ role.actor.prop }}, {{ role.actor.activity }}</li>
+            {% endfor %}
+        </ul>
 {% else %}
-    <p>No Actors found :o(</p>
+    <p>No Casts found!</p>
+{% endif %}
+
+<!-- Rehearsal Form -->
+<h2>Rehearsal/ Encoding</h2>
+<form action="{% url 'casting:rehearsal' %}" method="post">
+    {% csrf_token %}
+    {% if error_message %}<h2>{{ error_message }}</h2>{% endif %}
+    <label for="rehearsal_input">Enter a 3 digit code preview what to memorize.</label>
+    <input type="text" name="rehearsal_input" id="rehearsal_input" maxlength="3" size="5">
+    <input type="submit" value="Rehearse \ Encode">
+</form>
+{%  if rehearsal_result %}
+    <h3>Rehearsal Results</h3>
+    <p>{{ rehearsal_result }}</p>
 {% endif %}
 </body>
 </html>
