@@ -24,9 +24,9 @@
 <h2>Rehearsal</h2>
 <form action="{% url 'casting:rehearsal' activeCast.id %}" method="post">
     {% csrf_token %}
-    {% if error_message %}<h2>{{ error_message }}</h2>{% endif %}
-    <label for="rehearsal_input">Enter a 3 digit code preview what to memorize.</label>
-    <input type="text" name="rehearsal_input" id="rehearsal_input" maxlength="3" size="5">
+    {% if error_message %}<h3>{{ error_message }}</h3>{% endif %}
+    <label for="code_sequence">Enter a 3 digit code preview what to memorize.</label>
+    <input type="text" name="code_sequence" id="code_sequence" minlength="3" maxlength="12" size="6">
     <input type="submit" value="Rehearse \ Encode">
 </form>
 {%  if rehearsal_result %}
