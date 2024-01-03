@@ -1,5 +1,5 @@
-from django.shortcuts import get_object_or_404, render
-
+from django.shortcuts import render
+from django.views import generic
 from casting.models import Actor
 
 
@@ -10,15 +10,22 @@ def index(request):
     return render(request, "casting/index.html", context)
 
 
-def detail(request, actor_id):
-    actor = get_object_or_404(Actor, pk=actor_id)
-    return render(request, 'casting/details.html', {'actor': actor})
+class IndexView(generic.ListView):
+    template_name = "casting/index.html"
+    context_object_name = "actors_list"
+
+    def get_queryset(self):
+        return Actor.objects.order_by()[:5]
+
+
+class DetailView(generic.DetailView):
+    model = Actor
+    template_name = "casting/details.html"
 
 
 def rehearsal(request):
-
     context = {
-        'actors_list': Actor.objects.order_by(),
+        'actors_list': Actor.objects.order_by()[:5],
     }
     if request.method == 'POST':
         try:
