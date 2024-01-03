@@ -8,30 +8,25 @@
 </head>
 <body>
 <h1>Casting Room</h1>
+<h2> Management</h2>
+    <ul>
+        <li><a href="../admin/casting/actor">See all</a> or <a href="../admin/casting/actor/add">hire new</a> Actors</li>
+        <li><a href="../admin/casting/role/">Review</a> and <a href="../admin/casting/actor/add">create new</a> Roles</li>
+        <li><a href="../admin/casting/cast/">Build a Cast</a></li>
+    </ul>
 <h2>Current Cast</h2>
 {% if currentCast %}
-    <h3><a href="#">{{ currentCast.title}}</a></h3>
-        <ul>
-            {% for role in currentRoles %}
-                <li><b>{{ role.acts_as }}</b> is played by {{ role.actor }} with {{ role.actor.prop }}, {{ role.actor.activity }}</li>
-            {% endfor %}
-        </ul>
+    <h3>{{ currentCast.title}}</h3>
+    <h4>Role Description</h4>
+    <p>
+    {% for role in currentRoles %}
+        <b>{{ role.acts_as }}</b> is played by <b>{{ role.actor }}</b> with <i>{{ role.actor.prop }}</i>, <i>{{ role.actor.activity }}</i>.
+    {% endfor %}
+    </p>
+    <h4><a href="{% url 'casting:rehearsal' currentCast.id %}" >Start Rehearsal</a></h4>
 {% else %}
     <p>No Casts found!</p>
 {% endif %}
 
-<!-- Rehearsal Form -->
-<h2>Rehearsal/ Encoding</h2>
-<form action="{% url 'casting:rehearsal' %}" method="post">
-    {% csrf_token %}
-    {% if error_message %}<h2>{{ error_message }}</h2>{% endif %}
-    <label for="rehearsal_input">Enter a 3 digit code preview what to memorize.</label>
-    <input type="text" name="rehearsal_input" id="rehearsal_input" maxlength="3" size="5">
-    <input type="submit" value="Rehearse \ Encode">
-</form>
-{%  if rehearsal_result %}
-    <h3>Rehearsal Results</h3>
-    <p>{{ rehearsal_result }}</p>
-{% endif %}
 </body>
 </html>

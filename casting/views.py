@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
-from casting.models import Actor,Cast,Role
+from casting.models import Actor, Cast, Role
 
 
 def index(request):
@@ -20,15 +20,16 @@ class IndexView(generic.ListView):
         return Actor.objects.order_by("id")
 
 
-
 class DetailView(generic.DetailView):
     model = Actor
     template_name = "casting/details.html"
 
 
-def rehearsal(request):
+def rehearsal(request, cast_id):
+    cast = get_object_or_404(Cast, pk=cast_id)
     context = {
-        'actors_list': Actor.objects.order_by()[:5],
+        'activeCast': cast,
+        'activeRoles': cast.roles.all()
     }
     if request.method == 'POST':
         try:
@@ -36,4 +37,4 @@ def rehearsal(request):
         except KeyError:
             context['error_message'] = 'No rehearsal data provided'
 
-    return render(request, "casting/index.html", context)
+    return render(request, "casting/rehearsal.html", context)

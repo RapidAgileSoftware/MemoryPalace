@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casting Room</title>
+</head>
+<body>
+<h1>Rehearsal Stage</h1>
+<h2>Active Cast</h2>
+{% if activeCast %}
+    <h3>{{ activeCast.title}}</h3>
+        <ul>
+            {% for role in activeRoles %}
+                <li><b>{{ role.acts_as }}</b> is played by {{ role.actor }} with {{ role.actor.prop }}, {{ role.actor.activity }}</li>
+            {% endfor %}
+        </ul>
+{% else %}
+    <p>No active Casts found!</p>
+{% endif %}
+
+<!-- Rehearsal Form -->
+<h2>Rehearsal</h2>
+<form action="{% url 'casting:rehearsal' activeCast.id %}" method="post">
+    {% csrf_token %}
+    {% if error_message %}<h2>{{ error_message }}</h2>{% endif %}
+    <label for="rehearsal_input">Enter a 3 digit code preview what to memorize.</label>
+    <input type="text" name="rehearsal_input" id="rehearsal_input" maxlength="3" size="5">
+    <input type="submit" value="Rehearse \ Encode">
+</form>
+{%  if rehearsal_result %}
+    <h3>Rehearsal Results</h3>
+    <p>{{ rehearsal_result }}</p>
+{% endif %}
+</body>
+</html>
