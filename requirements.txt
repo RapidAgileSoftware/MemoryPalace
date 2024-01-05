@@ -1,2 +1,6 @@
 django~=5.0
 torchvision~=0.16
+torch==2.1.2
+diffusers
+transforms
+cudatools
