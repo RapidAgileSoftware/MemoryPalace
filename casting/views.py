@@ -54,11 +54,11 @@ def create_characters(code_sequence, roles):
         character_list = []
         character = {}
         for position, char in enumerate(code_sequence):
-            if position%3 == 0:
+            if position % 3 == 0:
                 character = {'person': cast_dict[char]['person']}
-            if position%3 == 1:
+            if position % 3 == 1:
                 character['prop'] = cast_dict[char]['prop']
-            if position%3 ==2:
+            if position % 3 == 2:
                 character['activity'] = cast_dict[char]['activity']
                 character_list.append(character)
         return character_list
