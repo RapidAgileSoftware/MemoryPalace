@@ -21,3 +21,9 @@ class Role(models.Model):
 class Cast(models.Model):
     title: str = models.CharField(max_length=200)
     roles = models.ManyToManyField(Role)
+
+    # Configure input Translation
+    encoding_steps: int = models.IntegerField(default=3)
+    contains_numbers: bool = models.BooleanField(default=True)
+    contains_letters: bool = models.BooleanField(default=False)
+    contains_symbols: bool = models.BooleanField(default=False)
