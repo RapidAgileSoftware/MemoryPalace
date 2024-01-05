@@ -2,13 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Classification with PyTorch</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PyTorch Image Label Prediction</title>
 </head>
 <body>
-<h1>Image Classification App</h1>
-<p>A simple Django web app with a pretrained PyTorch DenseNet model will try to classify the selected image according to ImageNet labels. Uploaded images are not saved.</p>
+
+
+<h1>Image Label prediction</h1>
+<p>A simple pretrained PyTorch DenseNet model will try to classify the selected image according to ImageNet labels. Uploaded images are not saved.</p>
+
 <form method="post" enctype="multipart/form-data" style="margin-top: 50px; margin-bottom: 30px;">
     {% csrf_token %}
     {{ form }}
@@ -29,5 +31,7 @@
     <img src="{{ image_uri }}" class="img-fluid" alt="Uploaded image"
          style="max-width: min(500px, 100%); height: auto; margin-top: 30px;">
 {% endif %}
+
+<h3><a href="{% url 'images:index' %}" >Back to Image Index</a></h3>
 </body>
 </html>

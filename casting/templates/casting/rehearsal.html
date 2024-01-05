@@ -33,5 +33,10 @@
     <h3>Rehearsal Results</h3>
     <p>{{ rehearsal_result }}</p>
 {% endif %}
+<h3>Links</h3>
+<ul>
+    <li><a href="{% url 'home' %}" >Back to Home page</a></li>
+    <li><a href="{% url 'casting:index' %}" >Back to Casting Room</a></li>
+</ul>
 </body>
 </html>

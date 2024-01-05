@@ -45,6 +45,10 @@ def get_prediction(image_bytes):
 
 
 def index(request):
+    return render(request, 'images/index.html', {})
+
+
+def label_prediction(request):
     image_uri = None
     predicted_label = None
 
@@ -70,4 +74,4 @@ def index(request):
         'image_uri': image_uri,
         'predicted_label': predicted_label,
     }
-    return render(request, 'images/index.html', context)
+    return render(request, 'images/label_prediction.html', context)
